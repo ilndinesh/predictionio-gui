@@ -1,7 +1,7 @@
 var fs = require('fs');
 var prediction = require('predictionio-client');
 
-prediction.config.APP_KEY = 'mKN52XibH4Ja1LnjQTHixw896xy7lBanjVBMsivu45sRItenjR4widGs1XZf0Fzo';
+prediction.config.APP_KEY = 'zwViTQebcKN51DpSewmnwYk9JO5vyXTm05h1dN49yv6AIsFDi3TmkFDLoxLtSX6s';
 prediction.config.APP_URL = 'http://localhost:8000' // default
 
 fs.readFile(__dirname+'/fixtures.json', function (err, data) {
