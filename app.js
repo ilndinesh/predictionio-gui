@@ -6,7 +6,7 @@ var express = require('express'),
     path = require('path'),
     http = require('http');
 
-prediction.config.APP_KEY = 'mKN52XibH4Ja1LnjQTHixw896xy7lBanjVBMsivu45sRItenjR4widGs1XZf0Fzo';
+prediction.config.APP_KEY = 'zwViTQebcKN51DpSewmnwYk9JO5vyXTm05h1dN49yv6AIsFDi3TmkFDLoxLtSX6s';
 prediction.config.APP_URL = 'http://localhost:8000';
 
 app.set('port', process.env.PORT || 3000);
@@ -39,7 +39,7 @@ app.post('/show', function (req, res) {
 });
 app.post('/recommend', function (req, res) {
     var user = req.body.user;
-    prediction.engine.recommendedItems('itemrec', user, 5, function (x, data) {
+    prediction.engine.recommendedItems('test-rec', user, 5, function (x, data) {
         console.log(data);
         res.send(data.pio_iids);
     });
