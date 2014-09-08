@@ -4,12 +4,12 @@ $(document).ready(function() {
     var showInputTemplate = Hogan.compile(
         '<li><input type="text" class="show" placeholder="{{placeholder}}"></li>'
     );
-    var recommendationTemplate = Hogan.compile('<li>{{show}}</li>');
+    var recommendationTemplate = Hogan.compile('<li class="recommended">{{show}}</li>');
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 5; i++) {
         var placeholder = '';
         if (i === 0) {
-            placeholder = 'E.g., Game of Thrones';
+            placeholder = 'E.g., MV005607100000';
         }
         $('.shows-field').append(showInputTemplate.render({placeholder: placeholder}));
     };
@@ -20,7 +20,7 @@ $(document).ready(function() {
             url: '/user',
             data: { 'user': $(this).val() },
             success: function(data) {
-                $('.notifications').append(notificationTemplate.render({ message: data.message, type: 'success' }));
+                // $('.notifications').append(notificationTemplate.render({ message: data.message, type: 'success' }));
                 cleanUpNotifications();
             },
             dataType: 'json'
@@ -44,10 +44,10 @@ $(document).ready(function() {
         });
     };
 
-    $('#get-button').click(function () {
+    var getRec = function (uri) {
         $.ajax({
             type: 'POST',
-            url: '/recommend',
+            url: uri,
             data: { 'user': $('#username').val() },
             success: function(data) {
                 $('#recommendations').show();
@@ -55,9 +55,25 @@ $(document).ready(function() {
                 for (var show in data) {
                     $('#recommendations ul').append(recommendationTemplate.render({ show: data[show] }));
                 }
+                /*
+                $(document).on('click', '.recommended', function () {
+                    var el = $(this);
+                    $.ajax({
+                        type: 'POST',
+                        url: '/item',
+                        data: { 'item': el.innerText },
+                        success: function(itemData) {
+                            el.innerText = itemData.pio_iid + ' - ' + itemData.title;
+                        }
+                    })
+                });
+                */
             }
         })
-    });
+    };
+
+    $('#get-button').click(function() {getRec('/recommend');});
+    $('#get-alt-button').click(function() {getRec('/recommend1');});
 
     $(document).on('blur', 'input.show', inputShowBlur);
     $(document).on('click', '.notification', function () {
